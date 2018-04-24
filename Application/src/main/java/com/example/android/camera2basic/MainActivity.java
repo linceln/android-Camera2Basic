@@ -24,16 +24,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTextureBackground = findViewById(R.id.textureBackground);
         mTextureForeground = findViewById(R.id.textureForeground);
         findViewById(R.id.capture).setOnClickListener(this);
+        mTextureForeground.setOnClickListener(this);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
-        ImageComposite.getInstance().compose(new ImageComposite.OnComposeCallback() {
-            @Override
-            public void onCompleted(String path) {
-                Toast.makeText(MainActivity.this, "Saved: " + path, Toast.LENGTH_SHORT).show();
-            }
-        });
+        switch (v.getId()) {
+            case R.id.capture:
+                ImageComposite.getInstance().compose(new ImageComposite.OnComposeCallback() {
+                    @Override
+                    public void onCompleted(String path) {
+                        Toast.makeText(MainActivity.this, "Saved: " + path, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+            case R.id.textureForeground:
+                // TODO 点击前后切换
+                break;
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
