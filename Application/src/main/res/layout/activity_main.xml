@@ -3,21 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.android.camera2basic.AutoFitTextureView
-        android:id="@+id/container"
+    <com.example.android.camera2basic.view.AutoFitTextureView
+        android:id="@+id/textureBackground"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
-    <com.example.android.camera2basic.AutoFitTextureView
-        android:id="@+id/container1"
-        android:layout_width="320dp"
-        android:layout_height="240dp" />
+    <com.example.android.camera2basic.view.AutoFitTextureView
+        android:id="@+id/textureForeground"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp" />
 
     <ImageView
         android:id="@+id/capture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="50dp"
         android:padding="30dp"
         android:src="@drawable/ic_launcher" />
 </FrameLayout>

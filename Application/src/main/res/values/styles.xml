@@ -14,7 +14,9 @@
  limitations under the License.
 -->
 <resources>
+
     <style name="MaterialTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowFullscreen">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 </resources>

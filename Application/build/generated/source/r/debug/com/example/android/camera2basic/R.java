@@ -2483,17 +2483,19 @@ public final class R {
     public static final int textSpacerNoButtons=0x7f070072;
     public static final int textSpacerNoTitle=0x7f070073;
     public static final int texture=0x7f070074;
-    public static final int time=0x7f070075;
-    public static final int title=0x7f070076;
-    public static final int titleDividerNoCustom=0x7f070077;
-    public static final int title_template=0x7f070078;
-    public static final int top=0x7f070079;
-    public static final int topPanel=0x7f07007a;
-    public static final int uniform=0x7f07007b;
-    public static final int up=0x7f07007c;
-    public static final int useLogo=0x7f07007d;
-    public static final int withText=0x7f07007e;
-    public static final int wrap_content=0x7f07007f;
+    public static final int textureBackground=0x7f070075;
+    public static final int textureForeground=0x7f070076;
+    public static final int time=0x7f070077;
+    public static final int title=0x7f070078;
+    public static final int titleDividerNoCustom=0x7f070079;
+    public static final int title_template=0x7f07007a;
+    public static final int top=0x7f07007b;
+    public static final int topPanel=0x7f07007c;
+    public static final int uniform=0x7f07007d;
+    public static final int up=0x7f07007e;
+    public static final int useLogo=0x7f07007f;
+    public static final int withText=0x7f070080;
+    public static final int wrap_content=0x7f070081;
   }
   public static final class integer {
     public static final int abc_config_activityDefaultDur=0x7f080000;
@@ -2530,7 +2532,7 @@ public final class R {
     public static final int abc_search_view=0x7f090018;
     public static final int abc_select_dialog_material=0x7f090019;
     public static final int activity_camera=0x7f09001a;
-    public static final int activity_second=0x7f09001b;
+    public static final int activity_main =0x7f09001b;
     public static final int fragment_camera2_basic=0x7f09001c;
     public static final int notification_action=0x7f09001d;
     public static final int notification_action_tombstone=0x7f09001e;

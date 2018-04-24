@@ -20,7 +20,7 @@ public class FileUtils {
      * @param bitmap {@link Bitmap} 合成后的 Bitmap
      * @return {@link String} 保存的路径
      */
-    public static String savePicture(Bitmap bitmap) {
+    public static String saveBitmap(Bitmap bitmap) {
         String picturesDir = getPicturesDir();
         File file = new File(picturesDir, System.currentTimeMillis() + ".jpg");
         FileOutputStream fos = null;
@@ -47,8 +47,7 @@ public class FileUtils {
      * @param data 二进制图片数据
      */
     public static String savePicture(Context context, byte[] data) {
-//        File file = new File(getCacheDir(context), System.currentTimeMillis() + ".jpg");
-        File file = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
+        File file = new File(getCacheDir(context), System.currentTimeMillis() + ".jpg");
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(file);

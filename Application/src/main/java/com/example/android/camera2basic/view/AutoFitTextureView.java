@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.camera2basic;
+package com.example.android.camera2basic.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -66,8 +66,10 @@ public class AutoFitTextureView extends TextureView {
             setMeasuredDimension(width, height);
         } else {
             if (width < height * mRatioWidth / mRatioHeight) {
+                //如果原始宽度小于缩放后的宽度，按原始宽度缩放
                 setMeasuredDimension(width, width * mRatioHeight / mRatioWidth);
             } else {
+                // 否则，按原始高度缩放
                 setMeasuredDimension(height * mRatioWidth / mRatioHeight, height);
             }
         }
