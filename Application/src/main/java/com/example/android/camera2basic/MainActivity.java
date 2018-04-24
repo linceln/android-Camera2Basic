@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.capture:
+                // 拍照
                 ImageComposite.getInstance().compose(new ImageComposite.OnComposeCallback() {
                     @Override
                     public void onCompleted(String path) {
