@@ -14,6 +14,7 @@ import com.example.android.camera2basic.view.AutoFitTextureView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private AutoFitTextureView mTextureBackground;
+
     private AutoFitTextureView mTextureForeground;
 
     @Override
@@ -40,7 +41,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         if (mTextureBackground.isAvailable()) {
-            ImageComposite.getInstance().openCamera(mTextureBackground.getSurfaceTexture(),
+            ImageComposite.getInstance().openCamera(this,
+                    mTextureBackground.getSurfaceTexture(),
                     mTextureBackground.getWidth(),
                     mTextureBackground.getHeight(),
                     mTextureForeground.getSurfaceTexture(),

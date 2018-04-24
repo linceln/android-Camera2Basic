@@ -82,14 +82,27 @@ public class ImageComposite {
         return mInstance;
     }
 
+    /**
+     * 打开/重新打开摄像头
+     *
+     * @param bgTexture {@link SurfaceTexture} 背景
+     * @param bgWidth   背景尺寸
+     * @param bgHeight  背景尺寸
+     * @param fgTexture {@link SurfaceTexture} 前景
+     * @param fgWidth   前景尺寸
+     * @param fgHeight  前景尺寸
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void openCamera(SurfaceTexture bgTexture, int bgWidth, int bgHeight,
+    public void openCamera(FragmentActivity activity,
+                           SurfaceTexture bgTexture, int bgWidth, int bgHeight,
                            SurfaceTexture fgTexture, int fgWidth, int fgHeight) {
 
         if (mBackHelper == null || mFrontHelper == null) {
             throw new NullPointerException("Not initialized");
         }
+        mBackHelper = Camera2Helper.newInstance(activity, activity.getLifecycle());
         mBackHelper.openBackCamera(bgTexture, bgWidth, bgHeight);
+        mFrontHelper = Camera2Helper.newInstance(activity, activity.getLifecycle());
         mFrontHelper.openFrontCamera(fgTexture, fgWidth, fgHeight);
     }
 
