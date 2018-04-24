@@ -20,8 +20,14 @@ import java.util.HashMap;
  */
 public class ImageComposite {
 
+    /**
+     * 前置摄像头
+     */
     private static final String FRONT = "front";
 
+    /**
+     * 后置摄像头
+     */
     private static final String BACK = "back";
 
     /**
@@ -74,6 +80,17 @@ public class ImageComposite {
 
     public static ImageComposite getInstance() {
         return mInstance;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void openCamera(SurfaceTexture bgTexture, int bgWidth, int bgHeight,
+                           SurfaceTexture fgTexture, int fgWidth, int fgHeight) {
+
+        if (mBackHelper == null || mFrontHelper == null) {
+            throw new NullPointerException("Not initialized");
+        }
+        mBackHelper.openBackCamera(bgTexture, bgWidth, bgHeight);
+        mFrontHelper.openFrontCamera(fgTexture, fgWidth, fgHeight);
     }
 
     /**

@@ -719,6 +719,22 @@
             ]
         },
         {
+            "outputFile": "D:\\AndroidProject\\android-Camera2Basic\\Application\\build\\intermediates\\res\\merged\\debug\\values-hdpi-v4_values-hdpi-v4.arsc.flat",
+            "map": [
+                {
+                    "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.0.2.aar\\ae9ac856c43ac366dabbfaf4aa21627e\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "6",
+                        "endColumns": "13",
+                        "endOffsets": "327"
+                    }
+                }
+            ]
+        },
+        {
             "outputFile": "D:\\AndroidProject\\android-Camera2Basic\\Application\\build\\intermediates\\res\\merged\\debug\\values-ne_values-ne.arsc.flat",
             "map": [
                 {
@@ -746,22 +762,6 @@
                         "startOffsets": "105,210,314,422,513,620,747,841,931,1019,1129,1245,1348,1463,1565,1680,1851,1963",
                         "endColumns": "104,103,107,90,106,126,93,89,87,109,115,102,114,101,114,170,111,85",
                         "endOffsets": "205,309,417,508,615,742,836,926,1014,1124,1240,1343,1458,1560,1675,1846,1958,2044"
-                    }
-                }
-            ]
-        },
-        {
-            "outputFile": "D:\\AndroidProject\\android-Camera2Basic\\Application\\build\\intermediates\\res\\merged\\debug\\values-hdpi-v4_values-hdpi-v4.arsc.flat",
-            "map": [
-                {
-                    "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.0.2.aar\\ae9ac856c43ac366dabbfaf4aa21627e\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endLines": "6",
-                        "endColumns": "13",
-                        "endOffsets": "327"
                     }
                 }
             ]

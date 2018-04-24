@@ -22,7 +22,6 @@ import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
 import android.os.Build;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
@@ -261,11 +260,10 @@ public class Camera2Helper implements LifecycleObserver {
     public Camera2Helper(Activity activity, Lifecycle lifecycle) {
         this.mActivity = activity;
         // 保存照片的位置
-//        mFile = new File(activity.getExternalCacheDir(), System.currentTimeMillis() + ".jpg");
-        // TODO
-        File externalFilesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        mFile = new File(externalFilesDir, System.currentTimeMillis() + ".jpg");
-        // 添加 Activity 生命周期监听
+        mFile = new File(activity.getExternalCacheDir(), System.currentTimeMillis() + ".jpg");
+//        File externalFilesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+//        mFile = new File(externalFilesDir, System.currentTimeMillis() + ".jpg");
+        // 添加 Activity 生命周期监听(
         lifecycle.addObserver(this);
         startBackgroundThread();
     }
@@ -535,13 +533,15 @@ public class Camera2Helper implements LifecycleObserver {
      */
     private void lockFocus() {
         try {
-            // This is how to tell the camera to lock focus.
-            mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
-                    CameraMetadata.CONTROL_AF_TRIGGER_START);
-            // Tell #mCaptureCallback to wait for the lock.
-            mState = STATE_WAITING_LOCK;
-            mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
-                    mBackgroundHandler);
+            if (mCaptureSession != null) {
+                // This is how to tell the camera to lock focus.
+                mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
+                        CameraMetadata.CONTROL_AF_TRIGGER_START);
+                // Tell #mCaptureCallback to wait for the lock.
+                mState = STATE_WAITING_LOCK;
+                mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
+                        mBackgroundHandler);
+            }
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
@@ -616,13 +616,15 @@ public class Camera2Helper implements LifecycleObserver {
      * Stops the background thread and its {@link Handler}.
      */
     private void stopBackgroundThread() {
-        mBackgroundThread.quitSafely();
-        try {
-            mBackgroundThread.join();
-            mBackgroundThread = null;
-            mBackgroundHandler = null;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (mBackgroundThread != null) {
+            mBackgroundThread.quitSafely();
+            try {
+                mBackgroundThread.join();
+                mBackgroundThread = null;
+                mBackgroundHandler = null;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

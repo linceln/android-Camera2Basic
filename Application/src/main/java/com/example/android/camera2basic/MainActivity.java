@@ -1,7 +1,9 @@
 package com.example.android.camera2basic;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
@@ -11,14 +13,16 @@ import com.example.android.camera2basic.view.AutoFitTextureView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private AutoFitTextureView mTextureBackground;
+    private AutoFitTextureView mTextureForeground;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        AutoFitTextureView textureBackground = findViewById(R.id.textureBackground);
-        AutoFitTextureView textureForeground = findViewById(R.id.textureForeground);
+        mTextureBackground = findViewById(R.id.textureBackground);
+        mTextureForeground = findViewById(R.id.textureForeground);
         findViewById(R.id.capture).setOnClickListener(this);
-        ImageComposite.getInstance().init(this, textureBackground, textureForeground);
     }
 
     @Override
@@ -29,5 +33,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(MainActivity.this, "Saved: " + path, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mTextureBackground.isAvailable()) {
+            ImageComposite.getInstance().openCamera(mTextureBackground.getSurfaceTexture(),
+                    mTextureBackground.getWidth(),
+                    mTextureBackground.getHeight(),
+                    mTextureForeground.getSurfaceTexture(),
+                    mTextureForeground.getWidth(),
+                    mTextureForeground.getHeight());
+        } else {
+            ImageComposite.getInstance().init(this, mTextureBackground, mTextureForeground);
+        }
     }
 }
