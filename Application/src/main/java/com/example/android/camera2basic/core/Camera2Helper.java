@@ -2,10 +2,12 @@ package com.example.android.camera2basic.core;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
@@ -22,11 +24,15 @@ import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
@@ -60,7 +66,7 @@ public class Camera2Helper implements LifecycleObserver {
         ORIENTATIONS.append(Surface.ROTATION_270, 180);
     }
 
-    private Activity mActivity;
+    private FragmentActivity mActivity;
 
     /**
      * Request code for Camera permission
@@ -257,7 +263,7 @@ public class Camera2Helper implements LifecycleObserver {
     };
 
 
-    public Camera2Helper(Activity activity, Lifecycle lifecycle) {
+    public Camera2Helper(FragmentActivity activity, Lifecycle lifecycle) {
         this.mActivity = activity;
         // 保存照片的位置
         mFile = new File(activity.getExternalCacheDir(), System.currentTimeMillis() + ".jpg");
@@ -268,7 +274,7 @@ public class Camera2Helper implements LifecycleObserver {
         startBackgroundThread();
     }
 
-    public static Camera2Helper newInstance(Activity activity, Lifecycle lifecycle) {
+    public static Camera2Helper newInstance(FragmentActivity activity, Lifecycle lifecycle) {
         return new Camera2Helper(activity, lifecycle);
     }
 
@@ -631,9 +637,10 @@ public class Camera2Helper implements LifecycleObserver {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void requestCameraPermission(Activity activity) {
         if (activity.shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
-            Toast.makeText(activity, R.string.request_permission, Toast.LENGTH_SHORT).show();
+            new ConfirmationDialog().show(mActivity.getSupportFragmentManager(), "");
         } else {
-            activity.requestPermissions(new String[]{Manifest.permission.CAMERA,
+            activity.requestPermissions(new String[]{
+                            Manifest.permission.CAMERA,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_CAMERA_PERMISSION);
         }
@@ -829,6 +836,36 @@ public class Camera2Helper implements LifecycleObserver {
                     mOnCaptureCompleteListener.onCaptureComplete(mFile);
                 }
             }
+        }
+    }
+
+    /**
+     * Shows OK/Cancel confirmation dialog about camera permission.
+     */
+    public static class ConfirmationDialog extends DialogFragment {
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final FragmentActivity activity = getActivity();
+            return new AlertDialog.Builder(activity)
+                    .setMessage(R.string.request_permission)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @RequiresApi(api = Build.VERSION_CODES.M)
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            activity.requestPermissions(new String[]{Manifest.permission.CAMERA},
+                                    REQUEST_CAMERA_PERMISSION);
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    activity.finish();
+                                }
+                            })
+                    .create();
         }
     }
 
